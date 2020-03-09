@@ -17,6 +17,7 @@ Or alternatively:
 env/bin/pip install -e .
 ```
 **Installing the frontend dependencies:**
+
 To install the frontend dependencies needed for the client application run:
 ```
 npm install
@@ -24,6 +25,7 @@ npm install
 ### Running the application
 
 **Frontend:**
+
 Open a terminal window and run the command:
 ```
 npm run start
@@ -31,6 +33,7 @@ npm run start
 This will set up a development server with hot reloading enabled. I used the templating engine to conditionally check the environment and include the correct scripts.
 
 **Backend:**
+
 Open a terminal window and run:
 ```
 ./env/bin/pserve development.ini --reload
@@ -47,7 +50,8 @@ npm run build
 ```
 This will create a new folder called ```dist/``` with our bundle included.
 
-**Start the server**
+**Start the server:**
+
 Run the following command:
 ```
 ./env/bin/pserve production.ini
