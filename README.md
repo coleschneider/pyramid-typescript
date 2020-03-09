@@ -1,6 +1,6 @@
 ### Full Stack Pyramid + Typescript & React
 
-#### Installation
+### Installation
 
 **Installing the backend dependencies:**
 To use this repository, start by running:
@@ -21,13 +21,15 @@ To install the frontend dependencies needed for the client application run:
 ```
 npm install
 ```
-#### Running the application
+### Running the application
+
 **Frontend:**
 Open a terminal window and run the command:
 ```
 npm run start
 ```
 This will set up a development server with hot reloading enabled. I used the templating engine to conditionally check the environment and include the correct scripts.
+
 **Backend:**
 Open a terminal window and run:
 ```
@@ -35,13 +37,16 @@ Open a terminal window and run:
 ```
 This will start the python server and watch for any changes
 
-#### Production
+### Production
+
 **Build the Frontend**
+
 Run the command:
 ```
 npm run build
 ```
 This will create a new folder called ```dist/``` with our bundle included.
+
 **Start the server**
 Run the following command:
 ```
