@@ -1,14 +1,13 @@
 {
-  "name": "rest",
+  "name": "pyramid-typescript",
   "version": "1.0.0",
-  "description": "",
-  "main": "babel.config.js",
+  "description": "A simple configuration for a web app using pyramid and waitress on the backend and typescript with react on the frontend",
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.config.js",
     "build": "rimraf dist && NODE_ENV=production webpack --config config/webpack.config.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["python", "typescript", "pyramid", "react", "webpack"],
+  "author": "Cole Schneider",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.8.7",
