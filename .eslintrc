@@ -2,7 +2,11 @@
     "parser":  "@typescript-eslint/parser",
     "extends":  [
       "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended"
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "prettier"
     ],
     "parserOptions":  {
     "ecmaVersion":  2018,  // Allows for the parsing of modern ECMAScript features
@@ -12,12 +16,15 @@
         }
     },
     "rules":  {
-      // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-      // e.g. "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-function-return-type": "off"
     },
     "settings":  {
       "react":  {
         "version":  "detect"
       }
-    }
+    },
+    "overrides":  [
+        {"files":["config/**/*.js"], "rules": {"@typescript-eslint/no-var-requires": 0}}
+        
+      ]
 }
