@@ -6,7 +6,9 @@
     "start": "webpack-dev-server --config config/webpack.config.js",
     "build": "rimraf dist && NODE_ENV=production webpack --config config/webpack.config.js",
     "lint": "eslint --fix \"client/**/*.+(ts|tsx|js|jsx)\"",
-    "format": "prettier --write \"client/**/*.+(ts|tsx|js|jsx)\""
+    "prettier-test": "prettier --check \"client/**/*.+(ts|tsx|js|jsx)\"",
+    "prettier": "prettier --write \"client/**/*.+(ts|tsx|js|jsx)\"",
+    "test": "npm run prettier-test && npm run lint"
   },
   "keywords": [
     "python",
