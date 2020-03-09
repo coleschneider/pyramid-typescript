@@ -1,18 +1,18 @@
-const webpack = require('webpack');
-const paths = require('./paths')
+const webpack = require("webpack");
+const paths = require("./paths");
 // Constants
-const nodeEnv = process.env.NODE_ENV || 'development'
-const isProd = nodeEnv === 'production'
+const nodeEnv = process.env.NODE_ENV || "development";
+const isProd = nodeEnv === "production";
 
 const config = {
   mode: nodeEnv,
-  devtool: isProd ? false  : 'cheap-module-source-map',
+  devtool: isProd ? false : "cheap-module-source-map",
   context: paths.appDirectory,
   entry: {
-    app: paths.entry
+    app: paths.entry,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   module: {
     rules: [
@@ -20,26 +20,26 @@ const config = {
         test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
         },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"],
       },
-      !isProd  && {
-        loader: 'source-map-loader',
+      !isProd && {
+        loader: "source-map-loader",
         test: /\.js$/,
         exclude: /node_modules/,
-        enforce: 'pre',
-      }
+        enforce: "pre",
+      },
     ].filter(Boolean),
   },
   output: {
     path: paths.build,
-    filename: 'bundle.js',
-    libraryTarget: 'umd',
-    publicPath: '/dist/',
+    filename: "bundle.js",
+    libraryTarget: "umd",
+    publicPath: "/dist/",
     umdNamedDefine: true,
   },
   optimization: {
@@ -50,13 +50,13 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(nodeEnv),
+      "process.env.NODE_ENV": JSON.stringify(nodeEnv),
     }),
     !isProd && new webpack.HotModuleReplacementPlugin(),
   ].filter(Boolean),
   devServer: {
     contentBase: paths.build,
-    publicPath: '/',
+    publicPath: "/",
     stats: {
       colors: true,
       hash: false,
@@ -73,7 +73,7 @@ const config = {
       warnings: false,
       publicPath: false,
     },
-  }
-}
+  },
+};
 
-module.exports = config
+module.exports = config;

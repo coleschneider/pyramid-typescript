@@ -4,9 +4,17 @@
   "description": "A simple configuration for a web app using pyramid and waitress on the backend and typescript with react on the frontend",
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.config.js",
-    "build": "rimraf dist && NODE_ENV=production webpack --config config/webpack.config.js"
+    "build": "rimraf dist && NODE_ENV=production webpack --config config/webpack.config.js",
+    "lint": "eslint --fix \"client/**/*.+(ts|tsx|js|jsx)\"",
+    "format": "prettier --write \"client/**/*.+(ts|tsx|js|jsx)\""
   },
-  "keywords": ["python", "typescript", "pyramid", "react", "webpack"],
+  "keywords": [
+    "python",
+    "typescript",
+    "pyramid",
+    "react",
+    "webpack"
+  ],
   "author": "Cole Schneider",
   "license": "ISC",
   "repository": "https://github.com/coleschneider/pyramid-typescript",
@@ -24,10 +32,16 @@
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "@types/webpack-env": "^1.15.1",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.7",
     "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-react": "^7.19.0",
     "html-webpack-plugin": "^3.2.0",
+    "prettier": "^1.19.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "source-map-loader": "^0.2.4",
