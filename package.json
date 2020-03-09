@@ -9,6 +9,7 @@
   "keywords": ["python", "typescript", "pyramid", "react", "webpack"],
   "author": "Cole Schneider",
   "license": "ISC",
+  "repository": "https://github.com/coleschneider/pyramid-typescript",
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/plugin-external-helpers": "^7.8.3",
