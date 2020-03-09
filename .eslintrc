@@ -26,5 +26,6 @@
     "overrides":  [
         {"files":["config/**/*.js"], "rules": {"@typescript-eslint/no-var-requires": 0}}
         
-      ]
+      ],
+      "ignorePatterns": ["dist/**", "api", "*.egg", "*.egg-info/"]
 }
