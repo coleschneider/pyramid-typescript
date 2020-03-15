@@ -7,6 +7,13 @@ requires = [
     'waitress',
     'pyramid_debugtoolbar',
     'pyramid_jinja2',
+    'plaster_pastedeploy',
+    'pyramid_retry',
+    'pyramid_tm',
+    'SQLAlchemy',
+    'transaction',
+    'psycopg2',
+    'zope.sqlalchemy',
 ]
 
 dev_requires = [
@@ -25,6 +32,9 @@ setup(
     entry_points={
         'paste.app_factory': [
             'main = api:main'
+        ],
+        'console_scripts': [
+            'initialize_api_db=api.scripts.initialize_db:main',
         ],
     },
 )

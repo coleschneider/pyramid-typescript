@@ -9,12 +9,13 @@ def main(global_config, **settings):
         asbool(settings.get('webpack-dev-server', 'f'))
         
     config = Configurator(settings=settings)
+    config.include('.models')
     config.include('pyramid_jinja2')
 
     config.add_renderer('.html', "pyramid_jinja2.renderer_factory")
     # Routes
     config.include('.routes')
     # Models
-    # config.include('.models')
+    
     config.scan()
     return config.make_wsgi_app()
