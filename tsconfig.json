@@ -17,7 +17,7 @@
     "downlevelIteration": true
   },
   "include": [
-    "./src/"
+    "./client/"
   ],
   "exclude": [
     "node_modules"
