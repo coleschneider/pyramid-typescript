@@ -13,8 +13,8 @@ from graphene_sqlalchemy import SQLAlchemyObjectType
 class TodoModel(Base):
     __tablename__ = 'todos'
     id = Column(Integer, primary_key=True)
-    body = Column(Text)
-    complete = Column(Boolean)
+    body = Column(Text, nullable=False)
+    complete = Column(Boolean, default=False)
 
 
 
