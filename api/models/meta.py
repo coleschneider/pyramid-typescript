@@ -1,5 +1,10 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import MetaData
+from zope.sqlalchemy import register
+from sqlalchemy.orm import (
+    scoped_session,
+    sessionmaker,
+    )
 
 # Recommended naming convention used by Alembic, as various different database
 # providers will autogenerate vastly different names making migrations more
@@ -23,3 +28,5 @@ class JsonBase(object):
                 and key not in json_exclude}
 
 Base = declarative_base(metadata=metadata, cls=JsonBase)
+DBSession = scoped_session(sessionmaker())
+register(DBSession)

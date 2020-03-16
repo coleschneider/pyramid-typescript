@@ -1,7 +1,7 @@
 from pyramid.view import view_config
 
 from webob_graphql import serve_graphql_request
-from api.models.todo import schema
+from api.graphql.todo import schema
 
 @view_config(
     route_name='graphql',
