@@ -14,6 +14,8 @@ requires = [
     'transaction',
     'psycopg2',
     'zope.sqlalchemy',
+    'webob-graphql',
+    'graphene-sqlalchemy'
 ]
 
 dev_requires = [
