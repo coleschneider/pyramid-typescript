@@ -45,6 +45,18 @@ class UpdateTodo(graphene.Mutation):
         old_todo.body = body
         return UpdateTodo(todo=old_todo)
 
+class DeleteTodo(graphene.Mutation):
+    """Mutation to delete a todo."""    
+    class Arguments:
+        id = graphene.UUID()
+    
+    success = graphene.Boolean()
+    def mutate(self, info, id):
+        db_session = info.context['session']
+        old = db_session.query(Todo).filter_by(id = id).one()
+        db_session.delete(old)
+        return DeleteTodo(success=True)
+
 class ToggleTodo(graphene.Mutation):
     """Mutation to toggle the completion status of a todo."""    
     class Arguments:
@@ -61,5 +73,6 @@ class TodoMutation(graphene.ObjectType):
     createTodo = CreateTodo.Field()
     updateTodo = UpdateTodo.Field()
     toggleTodo = ToggleTodo.Field()
+    deleteTodo = DeleteTodo.Field()
 
 schema = graphene.Schema(query=Query, mutation=TodoMutation)
