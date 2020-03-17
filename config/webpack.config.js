@@ -20,9 +20,11 @@ const config = {
       {
         test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+        loader: "babel-loader",
+      },
+      {
+        test: /\.svg$/,
+        use: ["@svgr/webpack"],
       },
       {
         test: /\.css$/,

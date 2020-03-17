@@ -3,71 +3,50 @@ import styled, {css} from "styled-components";
 import {useMutation} from "@apollo/react-hooks";
 import {ADD_TODO} from "../../constants/queries";
 import {updateTodos} from "../../../service/todos";
-import {levels} from "../../../styles/styleConfig";
+import Plus from "../../plus.svg";
+import useOnEnter from "../../hooks/useOnEnter";
+import useInput from "../../hooks/useInput";
 
-const AddTodoContainer = styled.form`
-  padding: 15px;
-  ${levels.one};
-`;
-
-const FormGroup = styled.div`
+const AddTodoContainer = styled.div`
+  padding: 20px;
+  padding-left: 40px;
+  border: none;
+  background: #4bc9d0;
+  box-shadow: 0 9px 7px 2px rgba(0, 0, 0, 0.03);
   display: flex;
-`;
-const Label = styled.label`
-  border-bottom: 1px solid #ededed;
-  color: #bdbdbd;
-  cursor: pointer;
+  justify-content: center;
   font-size: 16px;
-  line-height: 40px;
-  flex-shrink: 1;
-  white-space: nowrap;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+`;
+const StyledPlus = styled(Plus)`
+  display: inline-block;
+  overflow: visible;
+  vertical-align: top;
+  height: 20px;
+  margin-right: 20px;
+  width: 20px;
+  font-size: inherit;
 `;
 
-const InputContainer = styled.input<any>`
-  border: 0;
-  border-bottom: 1px solid #ededed;
-  height: 40px;
-  font-size: 16px;
-  line-height: 1;
-  color: #424242;
-  outline: 0 none;
-  padding-left: 15px;
-  width: 100%;
+const InputContainer = styled.input`
+  border: 0px;
+  color: #fff;
+  font-size: 1em;
+  background: inherit;
+  outline: none;
+  font-weight: 400;
+  height: 20px;
+  ::placeholder {
+    color: #fff;
+  }
 `;
-const SubmitBtn = styled.button`
-  background: 0 none;
-  border: 1px solid #ededed;
-  color: #bdbdbd;
-  margin-left: auto;
-  padding: 5px 10px;
-`;
-interface UseInput {
-  initialState: boolean | string;
-  type: "text" | "checkbox";
-}
 
-function useInput({initialState, type}: UseInput = {initialState: "", type: "text"}) {
-  const [value, setValue] = React.useState(initialState);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (type === "checkbox") {
-      setValue(!value);
-    } else {
-      setValue(e.target.value);
-    }
-  };
-  return {
-    value,
-    bind: {
-      value,
-      type,
-      id: type,
-      onChange: handleChange,
-    },
-  };
-}
 function AddTodo() {
-  const {bind: inputProps, value: body} = useInput();
+  const {bind: inputProps, value: body, setValue} = useInput();
+
   const {bind: checkboxProps, value: complete} = useInput({
     initialState: false,
     type: "checkbox",
@@ -76,25 +55,20 @@ function AddTodo() {
     update: updateTodos,
   });
 
-  const handleFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    addTodo({
-      variables: {body, complete},
-    });
-  };
+  const onAddTodo = useOnEnter(() => {
+    if (body) {
+      addTodo({variables: {body, complete: false}});
+      setValue("");
+    }
+  }, [body]);
   return (
-    <AddTodoContainer onSubmit={handleFormSubmit}>
-      <FormGroup>
-        <Label htmlFor="todo">Todo</Label>
-        <InputContainer {...inputProps} />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="checkbox">Complete</Label>
-        <InputContainer {...checkboxProps} />
-      </FormGroup>
-      <FormGroup>
-        <SubmitBtn>Add Todo</SubmitBtn>
-      </FormGroup>
+    <AddTodoContainer>
+      <InputContainer
+        onKeyPress={onAddTodo}
+        placeholder="Enter an activity..."
+        {...inputProps}
+      />
+      <StyledPlus />
     </AddTodoContainer>
   );
 }
