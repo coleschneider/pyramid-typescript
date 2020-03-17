@@ -1,18 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {useMutation} from "@apollo/react-hooks";
 import {ADD_TODO} from "../../constants/queries";
 import {updateTodos} from "../../../service/todos";
+import {levels} from "../../../styles/styleConfig";
 
-const AddTodoWrapper = styled.div`
-  /* display: flex; */
-  /* flex: 1; */
-  /* margin: 5px; */
-  /* flex-direction: column; */
-`;
 const AddTodoContainer = styled.form`
   padding: 15px;
-  box-shadow: 0 0 8px #ededed;
+  ${levels.one};
 `;
 
 const FormGroup = styled.div`
@@ -27,7 +22,8 @@ const Label = styled.label`
   flex-shrink: 1;
   white-space: nowrap;
 `;
-const InputContainer = styled.input`
+
+const InputContainer = styled.input<any>`
   border: 0;
   border-bottom: 1px solid #ededed;
   height: 40px;
@@ -45,41 +41,56 @@ const SubmitBtn = styled.button`
   margin-left: auto;
   padding: 5px 10px;
 `;
+interface UseInput {
+  initialState: boolean | string;
+  type: "text" | "checkbox";
+}
 
+function useInput({initialState, type}: UseInput = {initialState: "", type: "text"}) {
+  const [value, setValue] = React.useState(initialState);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (type === "checkbox") {
+      setValue(!value);
+    } else {
+      setValue(e.target.value);
+    }
+  };
+  return {
+    value,
+    bind: {
+      value,
+      type,
+      id: type,
+      onChange: handleChange,
+    },
+  };
+}
 function AddTodo() {
-  const [input, setInput] = React.useState("");
-  const [complete, setComplete] = React.useState(false);
-
-  const [addTodo, {data: d}] = useMutation(ADD_TODO, {
+  const {bind: inputProps, value: body} = useInput();
+  const {bind: checkboxProps, value: complete} = useInput({
+    initialState: false,
+    type: "checkbox",
+  });
+  const [addTodo, ...rest] = useMutation(ADD_TODO, {
     update: updateTodos,
   });
 
-  const handleInputChange = e => {
-    setInput(e.target.value);
-  };
-  const handleCheckboxToggle = () => {
-    setComplete(!complete);
-  };
-  const handleFormSubmit = e => {
+  const handleFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     addTodo({
-      variables: {body: input, complete},
+      variables: {body, complete},
     });
   };
   return (
     <AddTodoContainer onSubmit={handleFormSubmit}>
       <FormGroup>
         <Label htmlFor="todo">Todo</Label>
-        <InputContainer id="todo" value={input} onChange={handleInputChange} />
+        <InputContainer {...inputProps} />
       </FormGroup>
       <FormGroup>
         <Label htmlFor="checkbox">Complete</Label>
-        <InputContainer
-          checked={complete}
-          onChange={handleCheckboxToggle}
-          type="checkbox"
-          id="checkbox"
-        />
+        <InputContainer {...checkboxProps} />
       </FormGroup>
       <FormGroup>
         <SubmitBtn>Add Todo</SubmitBtn>

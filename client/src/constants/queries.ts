@@ -3,9 +3,11 @@ import {gql} from "apollo-boost";
 export const ALL_TODOS = gql`
   {
     todos {
-      id
       complete
       body
+      id
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -17,18 +19,22 @@ export const ADD_TODO = gql`
         id
         complete
         body
+        createdAt
+        updatedAt
       }
     }
   }
 `;
 
 export const TOGGLE_TODO = gql`
-  mutation TodoMutation($id: ID!) {
+  mutation TodoMutation($id: UUID!) {
     toggleTodo(id: $id) {
       todo {
         complete
         body
         id
+        createdAt
+        updatedAt
       }
     }
   }

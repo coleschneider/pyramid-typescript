@@ -3,7 +3,6 @@ import styled from "styled-components";
 import TodoList from "../TodoList/TodoList";
 import AddTodo from "../AddTodo/AddTodo";
 
-const GreetingWrapper = styled.div``;
 const TodoListWrapper = styled.div`
   margin: 50px auto;
   width: 400px;

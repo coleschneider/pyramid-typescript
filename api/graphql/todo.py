@@ -1,5 +1,5 @@
 import graphene
-from sqlalchemy import (text)
+from sqlalchemy import (text, desc)
 from graphene_sqlalchemy import SQLAlchemyObjectType
 from api.models import Todo
 
@@ -8,11 +8,14 @@ class TodoType(SQLAlchemyObjectType):
     class Meta:
         model = Todo
 
+
+
+
 class Query(graphene.ObjectType):
     todos = graphene.List(TodoType)
     def resolve_todos(self, info):
-        query = TodoType.get_query(info)  # SQLAlchemy query
-        return query.all()
+        db_session = info.context['session']
+        return db_session.query(Todo).order_by(Todo.created_at.desc()).all()
 
 class CreateTodo(graphene.Mutation):
     """Mutation to create todo."""    
@@ -33,7 +36,7 @@ class CreateTodo(graphene.Mutation):
 class UpdateTodo(graphene.Mutation):
     """Mutation to update todo."""    
     class Arguments:
-        id = graphene.ID()
+        id = graphene.UUID()
         body = graphene.String()
     
     todo = graphene.Field(TodoType)
@@ -45,7 +48,7 @@ class UpdateTodo(graphene.Mutation):
 class ToggleTodo(graphene.Mutation):
     """Mutation to toggle the completion status of a todo."""    
     class Arguments:
-        id = graphene.ID()
+        id = graphene.UUID()
     
     todo = graphene.Field(TodoType)
     def mutate(self, info, id):

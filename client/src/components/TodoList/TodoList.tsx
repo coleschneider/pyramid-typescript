@@ -3,22 +3,16 @@ import styled from "styled-components";
 import {useQuery, useMutation} from "@apollo/react-hooks";
 import {ALL_TODOS, ADD_TODO, TOGGLE_TODO} from "../../constants/queries";
 import {updateTodos} from "../../../service/todos";
+import {levels} from "../../../styles/styleConfig";
 
-const TodoListWrapper = styled.div`
-  margin: 0 auto;
-`;
-const TodoListContainer = styled.div`
-  padding: 1rem;
-`;
 const TodoBodyWrapper = styled.div`
   font-size: 16px;
   margin-bottom: 5px;
 `;
 const TodoWrapper = styled.div`
-  padding: 1rem;
-  border: 1px solid #dedede;
-  border-radius: 3px;
+  padding: 15px;
   margin: 5px;
+  ${levels.two};
 `;
 const TodoCheckboxWrapper = styled.input`
   padding: 1rem;
@@ -38,7 +32,6 @@ function Todo({id, body, complete}: Todo) {
 }
 function TodoList() {
   const {loading, error, data} = useQuery<TodoResponse>(ALL_TODOS);
-
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -46,7 +39,13 @@ function TodoList() {
     return <p>An error occurred...</p>;
   }
 
-  return data.todos.map(todo => <Todo key={todo.id} {...todo} />);
+  return (
+    <div>
+      {data.todos.map(todo => (
+        <Todo key={todo.id} {...todo} />
+      ))}
+    </div>
+  );
 }
 
 export default TodoList;

@@ -13,6 +13,6 @@ export const updateTodos: MutationUpdaterFn<any> = (cache, info) => {
   const {todos} = cache.readQuery({query: ALL_TODOS});
   cache.writeQuery({
     query: ALL_TODOS,
-    data: {todos: [...todos, info.data.createTodo.todo]},
+    data: {todos: [info.data.createTodo.todo, ...todos]},
   });
 };
