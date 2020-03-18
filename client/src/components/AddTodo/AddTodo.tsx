@@ -1,12 +1,12 @@
 import React from "react";
-import styled, {css} from "styled-components";
-import {useMutation} from "@apollo/react-hooks";
-import {ADD_TODO} from "../../constants/queries";
-import {updateTodos} from "../../../service/todos";
 import Plus from "../../plus.svg";
-import useOnEnter from "../../hooks/useOnEnter";
+import styled from "styled-components";
 import useInput from "../../hooks/useInput";
+import useOnEnter from "../../hooks/useOnEnter";
+import {ADD_TODO} from "../../constants/queries";
 import {levels, colors} from "../../../styles/styleConfig";
+import {updateTodos} from "../../../service/todos";
+import {useMutation} from "@apollo/react-hooks";
 
 const AddTodoContainer = styled.div`
   padding: 20px;
@@ -35,6 +35,7 @@ const StyledPlus = styled(Plus)`
 const InputContainer = styled.input`
   border: 0px;
   color: #fff;
+  border-bottom: solid 1px #fff;
   font-size: 1em;
   background: inherit;
   outline: none;

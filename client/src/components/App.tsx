@@ -10,7 +10,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Route path="/" component={Todos} />
+        <Route path="/:filter?" component={Todos} />
       </Router>
     </ApolloProvider>
   );

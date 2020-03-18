@@ -11,6 +11,11 @@ export const ALL_TODOS = gql`
     }
   }
 `;
+export const GET_FILTER = gql`
+  {
+    visibilityFilter @client
+  }
+`;
 
 export const ADD_TODO = gql`
   mutation TodoMutation($body: String!, $complete: Boolean) {
@@ -46,5 +51,11 @@ export const DELETE_TODO = gql`
         id
       }
     }
+  }
+`;
+
+export const VISIBILITY_FILTER = gql`
+  {
+    visibilityFilter @client
   }
 `;

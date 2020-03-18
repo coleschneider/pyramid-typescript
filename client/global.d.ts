@@ -7,3 +7,5 @@ interface Todo {
 interface TodoResponse {
   todos: Todo[];
 }
+
+type Filters = "all" | "active" | "completed";

@@ -7,10 +7,16 @@ const client = new ApolloClient({
   uri: "http://localhost:6543/graphql",
   cache: new InMemoryCache(),
 });
+client.writeData({
+  data: {
+    visibilityFilter: "all",
+  },
+});
 export default client;
 
 export const updateTodos: MutationUpdaterFn<any> = (cache, info) => {
   const {todos} = cache.readQuery({query: ALL_TODOS});
+
   cache.writeQuery({
     query: ALL_TODOS,
     data: {todos: [info.data.createTodo.todo, ...todos]},
