@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import {useMutation} from "@apollo/react-hooks";
-import {TOGGLE_TODO} from "../../constants/queries";
+import {TOGGLE_TODO, DELETE_TODO} from "../../constants/queries";
 import {levels} from "../../../styles/styleConfig";
-
+import Trash from "../../trash.svg";
+import {updatedDeletedTodo} from "../../../service/todos";
 interface StyleProps {
   complete: boolean;
 }
@@ -15,11 +16,23 @@ const CheckboxLabel = styled.label`
   user-select: none;
   position: absolute;
 `;
+
+const TrashCanIcon = styled(Trash)`
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+  path {
+    transition: fill 0.2s ease;
+  }
+  :hover path {
+    fill: #d0021b;
+  }
+`;
 const CheckboxInput = styled.span<StyleProps>`
   position: absolute;
   height: 20px;
   width: 20px;
-  display: inline;
+  display: block;
   border-radius: 20px;
   border: 2px solid #4bc9d0;
   background: ${props => (props.complete ? "#4bc9d0" : "none")};
@@ -38,6 +51,7 @@ const CheckboxInput = styled.span<StyleProps>`
 `;
 const TodoWrapper = styled.div`
   background: #ffffff;
+  ${levels.one};
 `;
 
 const TodoBody = styled.div`
@@ -53,8 +67,16 @@ const TodoDescription = styled.div<StyleProps>`
 
 function Todo({id, body, complete}: Todo) {
   const [toggleTodo] = useMutation(TOGGLE_TODO);
+
+  const [deleteTodo] = useMutation(DELETE_TODO, {
+    update: updatedDeletedTodo,
+  });
+
   const handleToggle = () => {
     toggleTodo({variables: {id}});
+  };
+  const handleDelete = () => {
+    deleteTodo({variables: {id}});
   };
   return (
     <TodoWrapper>
@@ -63,6 +85,7 @@ function Todo({id, body, complete}: Todo) {
           <CheckboxInput complete={complete} onClick={handleToggle} />
         </CheckboxLabel>
         <TodoDescription complete={complete}>{body}</TodoDescription>
+        <TrashCanIcon onClick={handleDelete} />
       </TodoBody>
     </TodoWrapper>
   );

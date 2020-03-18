@@ -6,13 +6,14 @@ import {updateTodos} from "../../../service/todos";
 import Plus from "../../plus.svg";
 import useOnEnter from "../../hooks/useOnEnter";
 import useInput from "../../hooks/useInput";
+import {levels, colors} from "../../../styles/styleConfig";
 
 const AddTodoContainer = styled.div`
   padding: 20px;
   padding-left: 40px;
   border: none;
-  background: #4bc9d0;
-  box-shadow: 0 9px 7px 2px rgba(0, 0, 0, 0.03);
+  background: ${colors.primary};
+  ${levels.one};
   display: flex;
   justify-content: center;
   font-size: 16px;
@@ -47,11 +48,7 @@ const InputContainer = styled.input`
 function AddTodo() {
   const {bind: inputProps, value: body, setValue} = useInput();
 
-  const {bind: checkboxProps, value: complete} = useInput({
-    initialState: false,
-    type: "checkbox",
-  });
-  const [addTodo, ...rest] = useMutation(ADD_TODO, {
+  const [addTodo] = useMutation(ADD_TODO, {
     update: updateTodos,
   });
 

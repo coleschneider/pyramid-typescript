@@ -1,18 +1,16 @@
 import React from "react";
 interface UseInput {
-  initialState: boolean | string;
-  type: "text" | "checkbox";
+  initialState: string;
+  type: "text";
 }
 
-function useInput({initialState, type}: UseInput = {initialState: "", type: "text"}) {
+function useInput<T = string>(
+  {initialState, type}: UseInput = {initialState: "", type: "text"}
+) {
   const [value, setValue] = React.useState(initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (type === "checkbox") {
-      setValue(!value);
-    } else {
-      setValue(e.target.value);
-    }
+    setValue(e.target.value);
   };
 
   return {

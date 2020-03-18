@@ -39,3 +39,12 @@ export const TOGGLE_TODO = gql`
     }
   }
 `;
+export const DELETE_TODO = gql`
+  mutation TodoMutation($id: UUID!) {
+    deleteTodo(id: $id) {
+      todo {
+        id
+      }
+    }
+  }
+`;

@@ -1,7 +1,7 @@
 interface Todo {
   complete: boolean;
   body: string;
-  id: number;
+  id: string;
 }
 
 interface TodoResponse {

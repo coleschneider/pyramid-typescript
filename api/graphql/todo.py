@@ -50,12 +50,12 @@ class DeleteTodo(graphene.Mutation):
     class Arguments:
         id = graphene.UUID()
     
-    success = graphene.Boolean()
+    todo = graphene.Field(TodoType)
     def mutate(self, info, id):
         db_session = info.context['session']
         old = db_session.query(Todo).filter_by(id = id).one()
         db_session.delete(old)
-        return DeleteTodo(success=True)
+        return DeleteTodo(todo=old)
 
 class ToggleTodo(graphene.Mutation):
     """Mutation to toggle the completion status of a todo."""    
