@@ -1,4 +1,4 @@
-### Full Stack Pyramid + Typescript & React
+## Full Stack Pyramid + Typescript & React
 
 ### Installation
 
